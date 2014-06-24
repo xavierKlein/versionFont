@@ -32,7 +32,7 @@ do
   TMPDIR=tmp
   BLANKFONT=i/utils/blank.sfd
   
-  NAME=Version_${VERSION}\_${i}\_skeletor
+  NAME=Version_${VERSION}\_${i}\_skeletor_avec
 
   ANSWER=y
 
@@ -77,15 +77,19 @@ if [ $ANSWER = y ] ; then
      do
 
     
-     		STYLE="style=\'fill:none;stroke:#000000;stroke-linecap:butt;stroke-linejoin:round;stroke-width:${i}px\'"
-        LAYER=`echo $LAYER | sed 's/kjsdf73SAc/ /g'`
+     	   STYLE="style=\'fill:none;stroke:#000000;stroke-linecap:butt;stroke-linejoin:round;stroke-width:${i}px\'"
+     	  TRANSFORM="<g transform='matrix(1,0,0,1,0,0)'>"
+     		LAYER=`echo $LAYER | sed 's/kjsdf73SAc/ /g'`
         OUT=`echo $LAYER | sed 's/label/\nlabel/g' | \
              grep "^label" | cut -d "\"" -f 2 | cut -d "_" -f 1` 
 			
         echo $SVGHEADER                       >  $TMPDIR/$OUT.svg
+        echo $TRANSFORM                           >> $TMPDIR/$OUT.svg
         echo $LAYER                           >> $TMPDIR/$OUT.svg
+        echo "</g>"                         >> $TMPDIR/$OUT.svg
         echo "</svg>"                         >> $TMPDIR/$OUT.svg
 		        sed -i "s/style=\"[^\"]*\"/$STYLE/g" $TMPDIR/$OUT.svg         
+
 
 		inkscape --verb EditSelectAllInAllLayers \
 					--verb SelectionUnGroup \
@@ -99,6 +103,9 @@ if [ $ANSWER = y ] ; then
 
 
     done
+
+
+
 
    # Font naming
    HUNAME=$NAME
