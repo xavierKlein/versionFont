@@ -4,7 +4,7 @@
 #for i in seq 
 
 SVG="i/svg/version_0.1.0.svg"
-VERSION="0.3"
+VERSION="0.4"
 
 echo "Minimum weight ?"
 read minstyles
